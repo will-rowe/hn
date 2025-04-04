@@ -1,0 +1,19 @@
+filename: "{{.InterfaceName | snakecase}}_mocks.go"
+dir: "{{.InterfaceDir}}/mocks"
+outpkg: "mocks"
+mockname: "Mock{{.InterfaceName}}"
+inpackage: False
+with-expecter: True
+all: False
+resolve-type-alias: False
+issue-845-fix: True
+
+packages:
+  github.com/will-rowe/hn/api/gen/go/report/v1:
+    config:
+      all: True
+    interfaces:
+      ReportServiceClient:
+  github.com/will-rowe/hn/backend/reporting:
+    interfaces:
+      ReportServiceInterface:

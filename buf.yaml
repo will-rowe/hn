@@ -1,0 +1,30 @@
+version: v2
+# The v2 buf.yaml file specifies a local workspace, which consists of at least one module.
+# The buf.yaml file should be placed at the root directory of the workspace, which
+# should generally be the root of your source control repository.
+modules:
+  # Each module entry defines a path, which must be relative to the directory where the
+  # buf.yaml is located. You can also specify directories to exclude from a module.
+  - path: api/protos
+    # A module can have its own lint and breaking configuration, which overrides the default
+    # lint and breaking configuration in its entirety for that module. All values from the
+    # default configuration are overridden and no rules are merged.
+    lint:
+      use:
+        - STANDARD
+      except:
+        - IMPORT_USED
+
+# Dependencies shared by all modules in the workspace. Must be modules hosted in the Buf Schema Registry.
+# The resolution of these dependencies is stored in the buf.lock file.
+deps:
+  - buf.build/googleapis/googleapis:acd896313c55464b993332136ded1b6e
+  - buf.build/grpc-ecosystem/grpc-gateway
+
+# The default lint configuration for any modules that don't have a specific lint configuration.
+#
+# If this section isn't present, AND a module doesn't have a specific lint configuration, the default
+# lint configuration is used for the module.
+lint:
+  use:
+    - STANDARD

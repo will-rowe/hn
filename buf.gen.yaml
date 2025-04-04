@@ -1,0 +1,34 @@
+version: v2
+# 'clean', when set to true, deletes the directories, zip files, and/or jar files specified in the `out` field for
+# all plugins before running code generation.
+clean: false
+managed:
+  # 'enabled: true' turns managed mode on, 'enabled: false' ignores all managed mode options.
+  enabled: true
+  # 'disable' is a list of 'disable' rules managing either file options or field options.
+  # A 'disable' rule must have at least one key set.
+  disable:
+    # Don't modify any files in buf.build/googleapis/googleapis
+    - module: buf.build/googleapis/googleapis
+    - module: buf.build/grpc-ecosystem/grpc-gateway";
+plugins:
+  # Go bindings for Protobuf
+  - remote: buf.build/protocolbuffers/go:v1.35.2
+    out: api/gen/go
+    opt:
+      - paths=source_relative
+  # Go bindings for gRPC
+  - remote: buf.build/grpc/go:v1.5.1
+    out: api/gen/go
+    opt:
+      - paths=source_relative
+      - require_unimplemented_servers=false
+  # Go bindings for gRPC Gateway
+  - remote: buf.build/grpc-ecosystem/gateway:v2.21.0
+    out: api/gen/go
+    opt: paths=source_relative
+  # OpenAPIv2
+  - remote: buf.build/grpc-ecosystem/openapiv2:v2.24.0
+    out: api/gen/openapiv2
+    opt:
+      - generate_unbound_methods=true

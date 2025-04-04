@@ -1,0 +1,49 @@
+// Package: report
+// Version: v1
+// Description: Report Service is used to report violations.
+syntax = "proto3";
+
+package report.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "/report";
+
+
+enum MediaType {
+  MEDIA_TYPE_UNSPECIFIED = 0;
+  MEDIA_TYPE_TEXT = 1;
+  MEDIA_TYPE_IMAGE = 2;
+  MEDIA_TYPE_AUDIO = 3;
+  MEDIA_TYPE_VIDEO = 4;
+  MEDIA_TYPE_ANIMATION = 5;
+}
+
+enum ViolationType {
+  VIOLATION_TYPE_UNSPECIFIED = 0;
+  VIOLATION_TYPE_PII = 1;
+  VIOLATION_TYPE_COPYRIGHT = 2;
+  VIOLATION_TYPE_OTHER = 3;
+}
+
+message SubmitReportRequest {
+  string dataset_id = 1;
+  string data_id = 2;
+  MediaType media_type = 3;
+  ViolationType violation_type = 4;
+  string description = 5;
+}
+
+message SubmitReportResponse {
+  string report_id = 1;
+  string status = 2;
+}
+
+service ReportService {
+  rpc SubmitReport(SubmitReportRequest) returns (SubmitReportResponse) {
+    option (google.api.http) = {
+      post: "/v1/reports"
+      body: "*"
+    };
+  }
+}

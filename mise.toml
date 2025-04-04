@@ -1,0 +1,27 @@
+[tools]
+go = '1.23.0'
+buf = '1.47.2'
+protoc = '28.2'
+
+[tasks.generate]
+description = "generate API bindings SQL boilerplate"
+run = "bash scripts/generate.sh"
+
+[tasks.test]
+description = "run tests"
+run = "bash scripts/test.sh"
+
+[tasks.e2e]
+description = "run end to end test"
+run = "docker-compose up --build --exit-code-from test-runner"
+
+[tasks.start]
+description = "start the server via docker compose"
+run = "bash scripts/start.sh"
+
+[settings]
+verbose = false
+asdf_compat = false
+jobs = 4
+raw = false
+yes = false

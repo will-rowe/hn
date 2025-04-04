@@ -1,0 +1,135 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "report/v1/report.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "ReportService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/reports": {
+      "post": {
+        "operationId": "ReportService_SubmitReport",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SubmitReportResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SubmitReportRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReportService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1MediaType": {
+      "type": "string",
+      "enum": [
+        "MEDIA_TYPE_UNSPECIFIED",
+        "MEDIA_TYPE_TEXT",
+        "MEDIA_TYPE_IMAGE",
+        "MEDIA_TYPE_AUDIO",
+        "MEDIA_TYPE_VIDEO",
+        "MEDIA_TYPE_ANIMATION"
+      ],
+      "default": "MEDIA_TYPE_UNSPECIFIED"
+    },
+    "v1SubmitReportRequest": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string"
+        },
+        "dataId": {
+          "type": "string"
+        },
+        "mediaType": {
+          "$ref": "#/definitions/v1MediaType"
+        },
+        "violationType": {
+          "$ref": "#/definitions/v1ViolationType"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "v1SubmitReportResponse": {
+      "type": "object",
+      "properties": {
+        "reportId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ViolationType": {
+      "type": "string",
+      "enum": [
+        "VIOLATION_TYPE_UNSPECIFIED",
+        "VIOLATION_TYPE_PII",
+        "VIOLATION_TYPE_COPYRIGHT",
+        "VIOLATION_TYPE_OTHER"
+      ],
+      "default": "VIOLATION_TYPE_UNSPECIFIED"
+    }
+  }
+}
