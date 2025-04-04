@@ -1,5 +1,7 @@
 # HN - Reporting Service
 
+[![CI](https://github.com/will-rowe/hn/actions/workflows/ci.yaml/badge.svg)](https://github.com/will-rowe/hn/actions/workflows/ci.yaml)
+
 A service to allow licensees to report individual pieces of data (text, image, audio, video, animation) that may be in violation of laws or regulations (e.g. contains PII). The service accepts structured violation reports and returns a report ID for tracking and audit purposes.
 
 ## Assumptions
